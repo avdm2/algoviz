@@ -20,6 +20,11 @@ public class DataStructureController {
         this.dataStructureService = dataStructureService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<DataStructureDto>> getAll() {
+        return ResponseEntity.ok(dataStructureService.getAll());
+    }
+
     @GetMapping("/{name}")
     public ResponseEntity<DataStructureDto> getDataStructureByName(@PathVariable String name) {
         return ResponseEntity.ok(dataStructureService.getDataStructureByName(name));

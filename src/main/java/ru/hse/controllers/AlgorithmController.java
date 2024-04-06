@@ -20,6 +20,11 @@ public class AlgorithmController {
         this.algorithmService = algorithmService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<AlgorithmDto>> getAll() {
+        return ResponseEntity.ok(algorithmService.getAll());
+    }
+
     @GetMapping("/{name}")
     public ResponseEntity<AlgorithmDto> getAlgorithmByName(@PathVariable String name) {
         return ResponseEntity.ok(algorithmService.getAlgorithmByName(name));

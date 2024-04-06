@@ -18,6 +18,21 @@ public class DataStructureService {
         this.dataStructureRepository = dataStructureRepository;
     }
 
+    public List<DataStructureDto> getAll() {
+        List<DataStructure> dataStructures = dataStructureRepository.findAll();
+        if (dataStructures.isEmpty()) {
+            throw new NotFoundInDBException("data structures not found");
+        }
+
+        return dataStructures.stream()
+                .map(dataStructure -> new DataStructureDto()
+                        .setName(dataStructure.getName())
+                        .setComplexity(dataStructure.getComplexity())
+                        .setDescription(dataStructure.getDescription())
+                        .setAlgorithms(dataStructure.getAlgorithms()))
+                .toList();
+    }
+
     public DataStructureDto getDataStructureByName(String name) {
         Optional<DataStructure> optionalDataStructure = dataStructureRepository.getByName(name);
         if (optionalDataStructure.isEmpty()) {

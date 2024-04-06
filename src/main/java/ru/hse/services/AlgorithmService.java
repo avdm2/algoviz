@@ -18,6 +18,20 @@ public class AlgorithmService {
         this.algorithmRepository = algorithmRepository;
     }
 
+    public List<AlgorithmDto> getAll() {
+        List<Algorithm> algorithms = algorithmRepository.findAll();
+        if (algorithms.isEmpty()) {
+            throw new NotFoundInDBException("algorithms not found");
+        }
+
+        return algorithms.stream()
+                .map(algorithm -> new AlgorithmDto()
+                        .setName(algorithm.getName())
+                        .setComplexity(algorithm.getComplexity())
+                        .setDescription(algorithm.getDescription()))
+                .toList();
+    }
+
     public AlgorithmDto getAlgorithmByName(String name) {
         Optional<Algorithm> optionalAlgorithm = algorithmRepository.getByName(name);
         if (optionalAlgorithm.isEmpty()) {
