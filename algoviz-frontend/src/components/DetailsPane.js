@@ -39,8 +39,19 @@ const DetailsPane = () => {
     setActiveTab(newValue);
   };
 
+  const containerStyle = {
+    padding: '20px',
+  };
+
+  const backButtonStyle = {
+    marginTop: '20px',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  };
+
   return (
-    <div>
+    <div style={containerStyle}>
       <Tabs value={activeTab} onChange={handleChange}>
         <Tab label="Общее" />
         <Tab label="Исходный код" />
@@ -54,7 +65,7 @@ const DetailsPane = () => {
         </div>
       )}
       {activeTab === 1 && <SourceCodeTab simpleName={simpleName} />}
-      <Button onClick={() => navigate(-1)} style={{ marginTop: '10px' }}>
+      <Button onClick={() => navigate(-1)} style={backButtonStyle}>
         Назад
       </Button>
     </div>
