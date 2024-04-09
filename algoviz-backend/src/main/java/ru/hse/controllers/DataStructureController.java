@@ -1,6 +1,7 @@
 package ru.hse.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,9 @@ public class DataStructureController {
         return ResponseEntity.ok(dataStructureService.getAll());
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<DataStructureDto> getDataStructureByName(@PathVariable String name) {
-        return ResponseEntity.ok(dataStructureService.getDataStructureByName(name));
+    @GetMapping("/{simpleName}")
+    public ResponseEntity<DataStructureDto> getDataStructureBySimpleName(@PathVariable String simpleName) {
+        return ResponseEntity.ok(dataStructureService.getDataStructureBySimpleName(simpleName));
     }
 
     @GetMapping("/complexity/{complexity}")

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface DataStructureRepository extends JpaRepository<DataStructure, Integer> {
 
-    Optional<DataStructure> getByName(String name);
+    Optional<DataStructure> getBySimpleName(String simpleName);
     List<DataStructure> getByComplexity(Integer complexity);
 }

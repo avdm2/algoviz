@@ -27,21 +27,23 @@ public class DataStructureService {
         return dataStructures.stream()
                 .map(dataStructure -> new DataStructureDto()
                         .setName(dataStructure.getName())
+                        .setSimpleName(dataStructure.getSimpleName())
                         .setComplexity(dataStructure.getComplexity())
                         .setDescription(dataStructure.getDescription())
                         .setAlgorithms(dataStructure.getAlgorithms()))
                 .toList();
     }
 
-    public DataStructureDto getDataStructureByName(String name) {
-        Optional<DataStructure> optionalDataStructure = dataStructureRepository.getByName(name);
+    public DataStructureDto getDataStructureBySimpleName(String simpleName) {
+        Optional<DataStructure> optionalDataStructure = dataStructureRepository.getBySimpleName(simpleName);
         if (optionalDataStructure.isEmpty()) {
-            throw new NotFoundInDBException("data structure with name " + name + " not found");
+            throw new NotFoundInDBException("data structure with name " + simpleName + " not found");
         }
 
         DataStructure dataStructure = optionalDataStructure.get();
         return new DataStructureDto()
                 .setName(dataStructure.getName())
+                .setSimpleName(dataStructure.getSimpleName())
                 .setComplexity(dataStructure.getComplexity())
                 .setDescription(dataStructure.getDescription())
                 .setAlgorithms(dataStructure.getAlgorithms());
@@ -56,6 +58,7 @@ public class DataStructureService {
         return dataStructures.stream()
                 .map(dataStructure -> new DataStructureDto()
                         .setName(dataStructure.getName())
+                        .setSimpleName(dataStructure.getSimpleName())
                         .setComplexity(dataStructure.getComplexity())
                         .setDescription(dataStructure.getDescription())
                         .setAlgorithms(dataStructure.getAlgorithms()))

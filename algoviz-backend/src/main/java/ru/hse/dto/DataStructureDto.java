@@ -12,6 +12,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class DataStructureDto {
 
+    private String simpleName;
     private String name;
     private Integer complexity;
     private String description;

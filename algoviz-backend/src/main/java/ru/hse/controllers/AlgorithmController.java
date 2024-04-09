@@ -25,9 +25,9 @@ public class AlgorithmController {
         return ResponseEntity.ok(algorithmService.getAll());
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<AlgorithmDto> getAlgorithmByName(@PathVariable String name) {
-        return ResponseEntity.ok(algorithmService.getAlgorithmByName(name));
+    @GetMapping("/{simpleName}")
+    public ResponseEntity<AlgorithmDto> getAlgorithmBySimpleName(@PathVariable String simpleName) {
+        return ResponseEntity.ok(algorithmService.getAlgorithmBySimpleName(simpleName));
     }
 
     @GetMapping("/complexity/{complexity}")

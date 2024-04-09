@@ -1,6 +1,7 @@
 package ru.hse.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,8 @@ public class DataStructure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "simple_name")
+    private String simpleName;
     private String name;
     private Integer complexity;
     private String description;

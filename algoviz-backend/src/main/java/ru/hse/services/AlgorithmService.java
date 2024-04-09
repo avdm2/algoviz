@@ -27,20 +27,22 @@ public class AlgorithmService {
         return algorithms.stream()
                 .map(algorithm -> new AlgorithmDto()
                         .setName(algorithm.getName())
+                        .setSimpleName(algorithm.getSimpleName())
                         .setComplexity(algorithm.getComplexity())
                         .setDescription(algorithm.getDescription()))
                 .toList();
     }
 
-    public AlgorithmDto getAlgorithmByName(String name) {
-        Optional<Algorithm> optionalAlgorithm = algorithmRepository.getByName(name);
+    public AlgorithmDto getAlgorithmBySimpleName(String simpleName) {
+        Optional<Algorithm> optionalAlgorithm = algorithmRepository.getBySimpleName(simpleName);
         if (optionalAlgorithm.isEmpty()) {
-            throw new NotFoundInDBException("algorithm with name " + name + " not found");
+            throw new NotFoundInDBException("algorithm with name " + simpleName + " not found");
         }
 
         Algorithm algorithm = optionalAlgorithm.get();
         return new AlgorithmDto()
                 .setName(algorithm.getName())
+                .setSimpleName(algorithm.getSimpleName())
                 .setComplexity(algorithm.getComplexity())
                 .setDescription(algorithm.getDescription());
     }
@@ -54,6 +56,7 @@ public class AlgorithmService {
         return algorithms.stream()
                 .map(algorithm -> new AlgorithmDto()
                         .setName(algorithm.getName())
+                        .setSimpleName(algorithm.getSimpleName())
                         .setComplexity(algorithm.getComplexity())
                         .setDescription(algorithm.getDescription()))
                 .toList();

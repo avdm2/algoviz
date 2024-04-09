@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface AlgorithmRepository extends JpaRepository<Algorithm, Integer> {
 
-    Optional<Algorithm> getByName(String name);
+    Optional<Algorithm> getBySimpleName(String simpleName);
     List<Algorithm> getByComplexity(Integer complexity);
 }
