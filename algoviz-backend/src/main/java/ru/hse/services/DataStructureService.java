@@ -30,6 +30,10 @@ public class DataStructureService {
                         .setSimpleName(dataStructure.getSimpleName())
                         .setComplexity(dataStructure.getComplexity())
                         .setDescription(dataStructure.getDescription())
+                        .setAdditionalInfo(dataStructure.getAdditionalInfo())
+                        .setSourceCodeJava(dataStructure.getSourceCodeJava())
+                        .setSourceCodePython(dataStructure.getSourceCodePython())
+                        .setSourceCodeCpp(dataStructure.getSourceCodeCpp())
                         .setAlgorithms(dataStructure.getAlgorithms()))
                 .toList();
     }
@@ -46,6 +50,10 @@ public class DataStructureService {
                 .setSimpleName(dataStructure.getSimpleName())
                 .setComplexity(dataStructure.getComplexity())
                 .setDescription(dataStructure.getDescription())
+                .setAdditionalInfo(dataStructure.getAdditionalInfo())
+                .setSourceCodeJava(dataStructure.getSourceCodeJava())
+                .setSourceCodePython(dataStructure.getSourceCodePython())
+                .setSourceCodeCpp(dataStructure.getSourceCodeCpp())
                 .setAlgorithms(dataStructure.getAlgorithms());
     }
 
@@ -61,6 +69,10 @@ public class DataStructureService {
                         .setSimpleName(dataStructure.getSimpleName())
                         .setComplexity(dataStructure.getComplexity())
                         .setDescription(dataStructure.getDescription())
+                        .setAdditionalInfo(dataStructure.getAdditionalInfo())
+                        .setSourceCodeJava(dataStructure.getSourceCodeJava())
+                        .setSourceCodePython(dataStructure.getSourceCodePython())
+                        .setSourceCodeCpp(dataStructure.getSourceCodeCpp())
                         .setAlgorithms(dataStructure.getAlgorithms()))
                 .toList();
     }

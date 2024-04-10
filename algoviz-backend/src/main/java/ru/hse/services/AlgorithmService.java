@@ -29,7 +29,11 @@ public class AlgorithmService {
                         .setName(algorithm.getName())
                         .setSimpleName(algorithm.getSimpleName())
                         .setComplexity(algorithm.getComplexity())
-                        .setDescription(algorithm.getDescription()))
+                        .setDescription(algorithm.getDescription())
+                        .setAdditionalInfo(algorithm.getAdditionalInfo())
+                        .setSourceCodeJava(algorithm.getSourceCodeJava())
+                        .setSourceCodePython(algorithm.getSourceCodePython())
+                        .setSourceCodeCpp(algorithm.getSourceCodeCpp()))
                 .toList();
     }
 
@@ -44,7 +48,11 @@ public class AlgorithmService {
                 .setName(algorithm.getName())
                 .setSimpleName(algorithm.getSimpleName())
                 .setComplexity(algorithm.getComplexity())
-                .setDescription(algorithm.getDescription());
+                .setDescription(algorithm.getDescription())
+                .setAdditionalInfo(algorithm.getAdditionalInfo())
+                .setSourceCodeJava(algorithm.getSourceCodeJava())
+                .setSourceCodePython(algorithm.getSourceCodePython())
+                .setSourceCodeCpp(algorithm.getSourceCodeCpp());
     }
 
     public List<AlgorithmDto> getAlgorithmsByComplexity(Integer complexity) {
@@ -58,7 +66,11 @@ public class AlgorithmService {
                         .setName(algorithm.getName())
                         .setSimpleName(algorithm.getSimpleName())
                         .setComplexity(algorithm.getComplexity())
-                        .setDescription(algorithm.getDescription()))
+                        .setDescription(algorithm.getDescription())
+                        .setAdditionalInfo(algorithm.getAdditionalInfo())
+                        .setSourceCodeJava(algorithm.getSourceCodeJava())
+                        .setSourceCodePython(algorithm.getSourceCodePython())
+                        .setSourceCodeCpp(algorithm.getSourceCodeCpp()))
                 .toList();
     }
 }

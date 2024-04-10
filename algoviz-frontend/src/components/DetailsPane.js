@@ -8,26 +8,15 @@ const DetailsPane = () => {
   const { type, simpleName } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
-  const [detail, setDetail] = useState({ description: 'Загрузка...', name: '' });
-  const [info, setInfo] = useState('Информация загружается...');
+  const [detail, setDetail] = useState({ description: 'Загрузка...', name: '', additionalInfo: '', sourceCodeJava: '', sourceCodePython: '', sourceCodeCpp: '' });
 
   const fetchDetail = async () => {
     try {
       const apiUrl = type === 'algorithm' ? `http://localhost:8080/api/algorithms/${simpleName}` : `http://localhost:8080/api/data-structures/${simpleName}`;
-      const detailResponse = await axios.get(apiUrl);
-      setDetail(detailResponse.data);
+      const { data } = await axios.get(apiUrl);
+      setDetail(data);
     } catch {
-      setDetail({ description: 'Нет информации' });
-    }
-
-    try {
-      const infoFileName = type === 'algorithm' ? 'algorithms_info' : 'data_structures_info';
-      const infoResponse = await fetch(`/${infoFileName}/${simpleName}_info.txt`);
-      if (!infoResponse.ok) throw new Error();
-      const infoText = await infoResponse.text();
-      setInfo(infoText);
-    } catch {
-      setInfo('Нет информации');
+      setDetail(prev => ({ ...prev, description: 'Нет информации' }));
     }
   };
 
@@ -39,20 +28,19 @@ const DetailsPane = () => {
     setActiveTab(newValue);
   };
 
-  const containerStyle = {
-    padding: '20px',
+  const formatMultilineText = (text) => {
+  return text.split('\n').map((str, index, array) => (
+    <span key={index}>
+      {str}
+      {index !== array.length - 1 && <br />}
+    </span>
+    ));
   };
 
-  const backButtonStyle = {
-    marginTop: '20px',
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  };
 
   return (
-    <div style={containerStyle}>
-      <Tabs value={activeTab} onChange={handleChange}>
+    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Tabs value={activeTab} onChange={handleChange} centered>
         <Tab label="Общее" />
         <Tab label="Исходный код" />
       </Tabs>
@@ -61,11 +49,11 @@ const DetailsPane = () => {
           <h3>Описание</h3>
           <p>{detail.description}</p>
           <h3>Дополнительная информация</h3>
-          <p>{info}</p>
+           <p>{detail.additionalInfo ? formatMultilineText(detail.additionalInfo) : 'Нет информации'}</p>
         </div>
       )}
-      {activeTab === 1 && <SourceCodeTab simpleName={simpleName} />}
-      <Button onClick={() => navigate(-1)} style={backButtonStyle}>
+      {activeTab === 1 && <SourceCodeTab detail={detail} />}
+      <Button onClick={() => navigate(-1)} style={{ marginTop: '20px', alignSelf: 'center', backgroundColor: '#1976d2', color: 'white' }}>
         Назад
       </Button>
     </div>

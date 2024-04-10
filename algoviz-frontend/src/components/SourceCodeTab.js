@@ -1,39 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
 
-const languages = ['cpp', 'java', 'python'];
+const languages = {
+  cpp: 'sourceCodeCpp',
+  java: 'sourceCodeJava',
+  python: 'sourceCodePython',
+};
 
-const SourceCodeTab = ({ simpleName }) => {
-  const [sourceCode, setSourceCode] = useState('Информация загружается...');
-  const [activeLanguage, setActiveLanguage] = useState(languages[0]);
+const SourceCodeTab = ({ detail }) => {
+  const [activeLanguage, setActiveLanguage] = React.useState('cpp');
 
-  useEffect(() => {
-    console.log(simpleName)
-    fetch(`/source_code/${simpleName}/${simpleName}_${activeLanguage}.txt`)
-      .then(response => {
-        if (!response.ok) throw new Error();
-        return response.text();
-      })
-      .then(text => {
-        setSourceCode(text);
-      })
-      .catch(() => {
-        setSourceCode('Нет информации');
-      });
-  }, [simpleName, activeLanguage]);
+  const sourceCode = detail[languages[activeLanguage]] || 'Информация загружается...';
 
   return (
-    <div>
-      {languages.map(language => (
+    <div style={{ padding: '20px' }}>
+      {Object.keys(languages).map(language => (
         <Button
           key={language}
           onClick={() => setActiveLanguage(language)}
           disabled={activeLanguage === language}
+          style={{ margin: '0 10px', backgroundColor: activeLanguage === language ? 'grey' : '#1976d2', color: 'white' }}
         >
           {language.toUpperCase()}
         </Button>
       ))}
-      <pre>{sourceCode}</pre>
+      <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{sourceCode}</pre>
     </div>
   );
 };

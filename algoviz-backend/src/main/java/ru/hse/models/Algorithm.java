@@ -29,7 +29,20 @@ public class Algorithm {
     private String simpleName;
     private String name;
     private Integer complexity;
+
     private String description;
+
+    @Column(name = "additional_info", length = 5000)
+    private String additionalInfo;
+
+    @Column(name = "source_code_java", length = 5000)
+    private String sourceCodeJava;
+
+    @Column(name = "source_code_python", length = 5000)
+    private String sourceCodePython;
+
+    @Column(name = "source_code_cpp", length = 5000)
+    private String sourceCodeCpp;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "data_structure_id", nullable = false)
