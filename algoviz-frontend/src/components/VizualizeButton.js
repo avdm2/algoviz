@@ -10,7 +10,7 @@ const VisualizeButton = ({ type, simpleName }) => {
   };
 
   return (
-    <Button variant="contained" color="primary" onClick={handleVisualize}>
+    <Button variant="contained" color="primary" onClick={handleVisualize} style={{ margin: '10px' }}>
       Визуализировать
     </Button>
   );

@@ -30,11 +30,11 @@ const DetailsPane = () => {
   };
 
   const formatMultilineText = (text) => {
-  return text.split('\n').map((str, index, array) => (
-    <span key={index}>
-      {str}
-      {index !== array.length - 1 && <br />}
-    </span>
+    return text.split('\n').map((str, index, array) => (
+      <span key={index}>
+        {str}
+        {index !== array.length - 1 && <br />}
+      </span>
     ));
   };
 
@@ -50,13 +50,13 @@ const DetailsPane = () => {
           <h3>Описание</h3>
           <p>{detail.description}</p>
           <h3>Дополнительная информация</h3>
-           <p>{detail.additionalInfo ? formatMultilineText(detail.additionalInfo) : 'Нет информации'}</p>
+          <p>{detail.additionalInfo ? formatMultilineText(detail.additionalInfo) : 'Нет информации'}</p>
         </div>
       )}
       {activeTab === 1 && <SourceCodeTab detail={detail} />}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}> {/* Для выравнивания кнопок */}
         <VisualizeButton type={type} simpleName={simpleName} style={{ marginRight: '10px' }} />
-        <Button onClick={() => navigate(-1)} variant="contained" color="secondary">
+        <Button onClick={() => navigate(-1)} variant="contained" color="secondary" style={{ margin: '10px' }}>
           Назад
         </Button>
       </div>

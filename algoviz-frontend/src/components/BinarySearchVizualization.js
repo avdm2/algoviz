@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Box, Typography } from '@mui/material';
 
 const BinarySearchVisualization = () => {
@@ -7,6 +8,7 @@ const BinarySearchVisualization = () => {
     const [errors, setErrors] = useState({ arrayError: false, targetError: false });
     const [steps, setSteps] = useState([]);
     const [currentStep, setCurrentStep] = useState(null);
+    const navigate = useNavigate();
 
     const handleArrayChange = (event) => {
         setArrayInput(event.target.value);
@@ -128,6 +130,9 @@ const BinarySearchVisualization = () => {
                 fullWidth
             >
                 Запустить визуализацию
+            </Button>
+            <Button onClick={() => navigate(-1)} variant="contained" color="secondary" style={{ margin: '10px' }}>
+                Назад
             </Button>
             {currentStep !== null && (
                 <>
