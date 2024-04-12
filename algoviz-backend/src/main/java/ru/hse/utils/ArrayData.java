@@ -3,14 +3,13 @@ package ru.hse.utils;
 public class ArrayData {
 
     public static final String ARRAY_INITIALIZATION_JAVA = """
-            int[] array = new int[]{1, 2, 3, 4, 5};
-            System.out.println(Arrays.toString(array));
-        }
+        int[] array = new int[]{1, 2, 3, 4, 5};
+        System.out.println(Arrays.toString(array));
         """;
 
     public static final String ARRAY_INITIALIZATION_PYTHON = """
-            array = [1, 2, 3, 4, 5]
-            print(array)
+        array = [1, 2, 3, 4, 5]
+        print(array)
         """;
 
     public static final String ARRAY_INITIALIZATION_CPP = """

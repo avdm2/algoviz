@@ -3,35 +3,35 @@ package ru.hse.utils;
 public class GraphData {
 
     public static final String GRAPH_JAVA = """
-            import java.util.ArrayList;
-            import java.util.List;
-        
-            public class Graph {
-                private final int vertices;
-                private final List<List<Integer>> adj;
-        
-                public Graph(int vertices) {
-                    this.vertices = vertices;
-                    adj = new ArrayList<>(vertices);
-                    for (int i = 0; i < vertices; i++) {
-                        adj.add(new ArrayList<>());
-                    }
-                }
-        
-                public void addEdge(int v, int w) {
-                    adj.get(v).add(w);
-                }
-        
-                public void print() {
-                    for (int i = 0; i < vertices; i++) {
-                        System.out.print(i + ": ");
-                        for (int j : adj.get(i)) {
-                            System.out.print(j + " ");
-                        }
-                        System.out.println();
-                    }
+        import java.util.ArrayList;
+        import java.util.List;
+    
+        public class Graph {
+            private final int vertices;
+            private final List<List<Integer>> adj;
+    
+            public Graph(int vertices) {
+                this.vertices = vertices;
+                adj = new ArrayList<>(vertices);
+                for (int i = 0; i < vertices; i++) {
+                    adj.add(new ArrayList<>());
                 }
             }
+    
+            public void addEdge(int v, int w) {
+                adj.get(v).add(w);
+            }
+    
+            public void print() {
+                for (int i = 0; i < vertices; i++) {
+                    System.out.print(i + ": ");
+                    for (int j : adj.get(i)) {
+                        System.out.print(j + " ");
+                    }
+                    System.out.println();
+                }
+            }
+        }
         """;
 
     public static final String GRAPH_PYTHON = """

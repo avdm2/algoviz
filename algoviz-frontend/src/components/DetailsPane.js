@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Tabs, Tab, Button } from '@mui/material';
 import SourceCodeTab from './SourceCodeTab';
+import VisualizeButton from './VizualizeButton';
 
 const DetailsPane = () => {
   const { type, simpleName } = useParams();
@@ -53,9 +54,12 @@ const DetailsPane = () => {
         </div>
       )}
       {activeTab === 1 && <SourceCodeTab detail={detail} />}
-      <Button onClick={() => navigate(-1)} style={{ marginTop: '20px', alignSelf: 'center', backgroundColor: '#1976d2', color: 'white' }}>
-        Назад
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}> {/* Для выравнивания кнопок */}
+        <VisualizeButton type={type} simpleName={simpleName} style={{ marginRight: '10px' }} />
+        <Button onClick={() => navigate(-1)} variant="contained" color="secondary">
+          Назад
+        </Button>
+      </div>
     </div>
   );
 };
