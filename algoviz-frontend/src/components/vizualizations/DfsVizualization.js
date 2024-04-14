@@ -13,7 +13,13 @@ const graph = {
         { id: 6, label: '6', title: "Node 6", color: 'LightBlue' },
         { id: 7, label: '7', title: "Node 7", color: 'LightBlue' },
         { id: 8, label: '8', title: "Node 8", color: 'LightBlue' },
-        { id: 9, label: '9', title: "Node 9", color: 'LightBlue' }
+        { id: 9, label: '9', title: "Node 9", color: 'LightBlue' },
+        { id: 10, label: '10', title: "Node 10", color: 'LightBlue' },
+        { id: 11, label: '11', title: "Node 11", color: 'LightBlue' },
+        { id: 12, label: '12', title: "Node 12", color: 'LightBlue' },
+        { id: 13, label: '13', title: "Node 13", color: 'LightBlue' },
+        { id: 14, label: '14', title: "Node 14", color: 'LightBlue' },
+        { id: 15, label: '15', title: "Node 15", color: 'LightBlue' }
     ],
     edges: [
         { id: 1, from: 1, to: 2 },
@@ -24,7 +30,24 @@ const graph = {
         { id: 6, from: 7, to: 8 },
         { id: 7, from: 8, to: 3 },
         { id: 8, from: 9, to: 4 },
-        { id: 9, from: 2, to: 9 }
+        { id: 9, from: 2, to: 9 },
+        { id: 10, from: 9, to: 10 },
+        { id: 11, from: 10, to: 11 },
+        { id: 12, from: 11, to: 12 },
+        { id: 13, from: 12, to: 6 },
+        { id: 14, from: 1, to: 4 },
+        { id: 15, from: 4, to: 5 },
+        { id: 16, from: 5, to: 12 },
+        { id: 17, from: 12, to: 3 },
+        { id: 18, from: 3, to: 13 },
+        { id: 19, from: 13, to: 14 },
+        { id: 20, from: 14, to: 15 },
+        { id: 21, from: 15, to: 1 },
+        { id: 22, from: 15, to: 6 },
+        { id: 23, from: 14, to: 9 },
+        { id: 24, from: 13, to: 4 },
+        { id: 25, from: 10, to: 14 },
+        { id: 26, from: 10, to: 7 }
     ]
 };
 
@@ -42,9 +65,21 @@ const DFSVisualization = () => {
     const navigate = useNavigate();
     const [log, setLog] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
-    const [visited, setVisited] = useState({});
+    const [, setVisited] = useState({});
     const [dfsOrder, setDfsOrder] = useState([]);
-    const [graphState, setGraphState] = useState(graph);
+    const [, setGraphState] = useState(graph);
+
+    const saveVisualizationToHistory = () => {
+        const history = JSON.parse(localStorage.getItem('visualizationHistory')) || [];
+        history.push({
+            type: 'algorithm',
+            simpleName: 'dfs',
+            fullName: 'Поиск в глубину',
+            timestamp: new Date().toISOString(),
+            link: 'http://localhost:3000/visualize/algorithm/dfs'
+        });
+        localStorage.setItem('visualizationHistory', JSON.stringify(history));
+    };
 
     const dfs = (startNodeId) => {
         const visited = new Set();
@@ -71,6 +106,7 @@ const DFSVisualization = () => {
     };
 
     const handleStartDFS = () => {
+        saveVisualizationToHistory();
         setLog([]);
         setVisited(new Set());
         setCurrentStep(0);
@@ -88,7 +124,7 @@ const DFSVisualization = () => {
 
     const handleNextStep = () => {
         const step = dfsOrder[currentStep];
-        const newLog = `Посещена вершина ${step.nodeId}`;
+        const newLog = `Посещена вершина ${step.nodeId} из ${step.parentNodeId || 'старта'}`;
         setLog(prev => [...prev, newLog]);
         setCurrentStep(currentStep + 1);
     };
@@ -101,7 +137,7 @@ const DFSVisualization = () => {
         })),
         nodes: graph.nodes.map(node => ({
             ...node,
-            color: dfsOrder.slice(0, currentStep).find(step => step.nodeId === node.id) ? 'red' : node.color
+            color: dfsOrder.slice(0, currentStep).find(step => step.nodeId === node.id) ? 'lightgreen' : node.color
         }))
     };
 

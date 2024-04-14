@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import ListPage from './components/ListPage';
 import DetailsPane from './components/DetailsPane';
 import VisualizationPage from './components/VizualizationPage';
+import VisualizationHistory from './components/history/VizualizationHistory';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/list" element={<ListPage />} />
+          <Route path="/history" element={<VisualizationHistory />} />
           <Route path="/details/:type/:simpleName" element={<DetailsPane />} />
           <Route path="/visualize/:type/:simpleName" element={<VisualizationPage />} />
         </Routes>

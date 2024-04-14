@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Graph from 'react-graph-vis';
-import { Button, Box, Typography } from '@mui/material';
+import { Button, Box, Typography, TextField } from '@mui/material';
 
 const graph = {
     nodes: [
@@ -61,57 +61,91 @@ const options = {
     height: "500px"
 };
 
-const BFSVisualization = () => {
+const DijkstraVizualization = () => {
     const navigate = useNavigate();
     const [log, setLog] = useState([]);
     const [currentStep, setCurrentStep] = useState(0);
-    const [, setVisited] = useState(new Set());
-    const [bfsOrder, setBfsOrder] = useState([]);
-    const [, setGraphState] = useState(graph);
+    const [startNode, setStartNode] = useState('');
+    const [endNode, setEndNode] = useState('');
+    const [graphState, setGraphState] = useState(graph);
+    const [dijkstraOrder, setDijkstraOrder] = useState([]);
 
     const saveVisualizationToHistory = () => {
         const history = JSON.parse(localStorage.getItem('visualizationHistory')) || [];
         history.push({
             type: 'algorithm',
-            simpleName: 'bfs',
-            fullName: 'Поиск в ширину',
+            simpleName: 'dijkstra',
+            fullName: 'Алгоритм Дейкстры',
             timestamp: new Date().toISOString(),
-            link: 'http://localhost:3000/visualize/algorithm/bfs'
+            params: Array.from(new Map([
+                ["Старт", startNode],
+                ["Конец", endNode]
+            ]).entries()),
+            link: 'http://localhost:3000/visualize/algorithm/dijkstra'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };
 
-    const bfs = (startNodeId) => {
-        const visited = new Set();
-        const steps = [];
-        const queue = [{ nodeId: startNodeId, parentNodeId: null }];
+    const dijkstra = (graph, sourceId) => {
+        const distances = {};
+        const previous = {};
+        const nodes = new Set(graph.nodes.map(node => node.id));
 
-        while (queue.length > 0) {
-            const { nodeId, parentNodeId } = queue.shift();
-            if (visited.has(nodeId)) continue;
+        graph.nodes.forEach(node => {
+            distances[node.id] = Infinity;
+            previous[node.id] = null;
+        });
 
-            visited.add(nodeId);
-            steps.push({ nodeId, parentNodeId });
+        distances[sourceId] = 0;
 
-            const neighbors = graph.edges
-                .filter(edge => edge.from === nodeId && !visited.has(edge.to))
-                .map(edge => ({ nodeId: edge.to, parentNodeId: nodeId }));
+        while (nodes.size) {
+            let minNode = null;
+            nodes.forEach(node => {
+                if (minNode === null || distances[node] < distances[minNode]) {
+                    minNode = node;
+                }
+            });
 
-            for (let i = neighbors.length - 1; i >= 0; i--) {
-                queue.push(neighbors[i]);
+            nodes.delete(minNode);
+            if (distances[minNode] === Infinity) {
+                break;
             }
+
+            graph.edges.filter(edge => edge.from === minNode).forEach(edge => {
+                const target = edge.to;
+                const cost = 10;
+                const costThroughMinNode = distances[minNode] + cost;
+                if (costThroughMinNode < distances[target]) {
+                    distances[target] = costThroughMinNode;
+                    previous[target] = minNode;
+                }
+            });
         }
 
+        return { distances, previous };
+    };
+
+    const buildSteps = (previous, targetId) => {
+        let current = targetId;
+        const steps = [];
+        while (current !== null) {
+            steps.unshift({ nodeId: current, parentNodeId: previous[current] });
+            current = previous[current];
+        }
         return steps;
     };
 
-    const handleStartBFS = () => {
+    const handleStartDijkstra = () => {
+        if (!startNode || isNaN(startNode) || !endNode || isNaN(endNode)) {
+            alert("Укажите начальную и конечную вершину.");
+            return;
+        }
+
         saveVisualizationToHistory();
         setLog([]);
-        setVisited(new Set());
         setCurrentStep(0);
-        const steps = bfs(1);
-        setBfsOrder(steps);
+        const results = dijkstra(graphState, parseInt(startNode));
+        setDijkstraOrder(buildSteps(results.previous, parseInt(endNode)));
         resetGraphColors();
     };
 
@@ -123,7 +157,7 @@ const BFSVisualization = () => {
     };
 
     const handleNextStep = () => {
-        const step = bfsOrder[currentStep];
+        const step = dijkstraOrder[currentStep];
         const newLog = `Посещена вершина ${step.nodeId} из ${step.parentNodeId || 'старта'}`;
         setLog(prev => [...prev, newLog]);
         setCurrentStep(currentStep + 1);
@@ -133,11 +167,11 @@ const BFSVisualization = () => {
         ...graph,
         edges: graph.edges.map(edge => ({
             ...edge,
-            color: bfsOrder.slice(0, currentStep).find(step => step.nodeId === edge.to && step.parentNodeId === edge.from) ? 'red' : '#000000'
+            color: dijkstraOrder.slice(0, currentStep).find(step => step.nodeId === edge.to && step.parentNodeId === edge.from) ? 'red' : '#000000'
         })),
         nodes: graph.nodes.map(node => ({
             ...node,
-            color: bfsOrder.slice(0, currentStep).find(step => step.nodeId === node.id) ? 'lightgreen' : node.color
+            color: dijkstraOrder.slice(0, currentStep).find(step => step.nodeId === node.id) ? 'lightgreen' : node.color
         }))
     };
 
@@ -145,25 +179,35 @@ const BFSVisualization = () => {
         <Box sx={{ display: 'flex' }}>
             <Graph graph={graphWithVisited} options={options} />
             <Box>
-                <Button variant="contained" color="primary" onClick={handleStartBFS} sx={{ mt: 2 }} style={{ margin: '10px' }}>
+                <TextField
+                    label="Начальная вершина"
+                    value={startNode}
+                    onChange={(e) => setStartNode(e.target.value)}
+                    sx={{ mt: 2 }}
+                    style={{ margin: '10px' }}
+                />
+                <TextField
+                    label="Конечная вершина"
+                    value={endNode}
+                    onChange={(e) => setEndNode(e.target.value)}
+                    sx={{ mt: 2 }}
+                    style={{ margin: '10px' }}
+                />
+                <Button variant="contained" onClick={handleStartDijkstra} style={{ margin: '10px' }}>
                     Запустить визуализацию
                 </Button>
-                <Button variant="contained" color="primary" onClick={handleNextStep} disabled={currentStep >= bfsOrder.length} sx={{ mt: 2 }} style={{ margin: '10px' }}>
+                <Button variant="contained" onClick={handleNextStep} disabled={currentStep >= dijkstraOrder.length}>
                     Следующий шаг
                 </Button>
-                <Button onClick={() => navigate(-1)} variant="contained" color="secondary" style={{ margin: '10px' }}>
-                    Назад
-                </Button>
-                {(
-                    <Box>
-                        {log.slice(0, currentStep).map((entry, idx) => (
-                            <Typography key={idx}>{entry}</Typography>
-                        ))}
-                    </Box>
-                )}
+                <Button onClick={() => navigate(-1)} variant="contained" color="secondary" style={{ margin: '10px' }}>Назад</Button>
+                <Box>
+                    {log.map((entry, idx) => (
+                        <Typography key={idx}>{entry}</Typography>
+                    ))}
+                </Box>
             </Box>
         </Box>
     );
 };
 
-export default BFSVisualization;
+export default DijkstraVizualization;

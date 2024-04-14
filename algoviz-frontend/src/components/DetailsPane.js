@@ -11,6 +11,8 @@ const DetailsPane = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [detail, setDetail] = useState({ description: 'Загрузка...', name: '', additionalInfo: '', sourceCodeJava: '', sourceCodePython: '', sourceCodeCpp: '' });
 
+  const allowedVisualizations = new Set(['bfs', 'dfs', 'binary_search', 'quicksort', 'dijkstra']);
+
   const fetchDetail = async () => {
     try {
       const apiUrl = type === 'algorithm' ? `http://localhost:8080/api/algorithms/${simpleName}` : `http://localhost:8080/api/data-structures/${simpleName}`;
@@ -54,8 +56,10 @@ const DetailsPane = () => {
         </div>
       )}
       {activeTab === 1 && <SourceCodeTab detail={detail} />}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}> {/* Для выравнивания кнопок */}
-        <VisualizeButton type={type} simpleName={simpleName} style={{ marginRight: '10px' }} />
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        {allowedVisualizations.has(simpleName) && (
+          <VisualizeButton simpleName={simpleName} style={{ marginRight: '10px' }} />
+        )}
         <Button onClick={() => navigate(-1)} variant="contained" color="secondary" style={{ margin: '10px' }}>
           Назад
         </Button>

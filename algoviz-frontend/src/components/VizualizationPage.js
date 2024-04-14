@@ -2,12 +2,14 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BinarySearchVisualization from './vizualizations/BinarySearchVizualization';
 import DFSVisualization from './vizualizations/DfsVizualization';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import BFSVisualization from './vizualizations/BfsVizualization';
+import DijkstraVizualization from './vizualizations/DijkstraVizualization';
+import QuickSortVisualization from './vizualizations/QuickSortVizualization';
 
 const VisualizationPage = () => {
   const navigate = useNavigate();
-  const { type, simpleName } = useParams();
+  const { simpleName } = useParams();
 
   const renderVisualization = () => {
     switch (simpleName) {
@@ -17,6 +19,10 @@ const VisualizationPage = () => {
         return <DFSVisualization />;
       case 'bfs':
         return <BFSVisualization />;
+      case 'dijkstra':
+        return <DijkstraVizualization />
+      case 'quicksort':
+        return <QuickSortVisualization />
       default:
         return (
           <div>
@@ -33,7 +39,7 @@ const VisualizationPage = () => {
 
   return (
     <div>
-      <h1>Визуализация: {simpleName}</h1>
+      <Typography variant="h4" sx={{ ml: 2, mt: 2, fontWeight: 'bold' }}>Визуализация: {simpleName}</Typography>
       {renderVisualization()}
     </div>
   );

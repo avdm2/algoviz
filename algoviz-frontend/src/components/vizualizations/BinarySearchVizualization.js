@@ -24,6 +24,22 @@ const BinarySearchVisualization = () => {
         setErrors(prev => ({ ...prev, targetError }));
     };
 
+    const saveVisualizationToHistory = () => {
+        const history = JSON.parse(localStorage.getItem('visualizationHistory')) || [];
+        history.push({
+            type: 'algorithm',
+            simpleName: 'binary_search',
+            fullName: 'Бинарный поиск',
+            timestamp: new Date().toISOString(),
+            params: Array.from(new Map([
+                ["Массив", arrayInput],
+                ["Искомое число", targetInput]
+            ]).entries()),
+            link: 'http://localhost:3000/visualize/algorithm/binarys_search'
+        });
+        localStorage.setItem('visualizationHistory', JSON.stringify(history));
+    };
+
     const binarySearch = (arr, target) => {
         let start = 0;
         let end = arr.length - 1;
@@ -53,6 +69,7 @@ const BinarySearchVisualization = () => {
             return;
         }
 
+        saveVisualizationToHistory();
         setCurrentStep(0);
         const array = arrayInput.split(',').map(Number);
         const target = Number(targetInput);
