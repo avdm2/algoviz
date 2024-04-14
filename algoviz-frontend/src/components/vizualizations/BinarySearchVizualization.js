@@ -35,7 +35,7 @@ const BinarySearchVisualization = () => {
                 ["Массив", arrayInput],
                 ["Искомое число", targetInput]
             ]).entries()),
-            link: 'http://localhost:3000/visualize/algorithm/binarys_search'
+            link: 'http://localhost:3000/visualize/algorithm/binary_search'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };
