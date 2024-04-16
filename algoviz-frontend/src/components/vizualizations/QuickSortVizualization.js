@@ -31,7 +31,7 @@ const QuickSortVisualization = () => {
             params: Array.from(new Map([
                 ["Размер", arraySize]
             ]).entries()),
-            link: 'http://localhost:3000/visualize/algorithm/quicksort'
+            link: 'https://algoviz-avdm2.netlify.app/visualize/algorithm/quicksort'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };

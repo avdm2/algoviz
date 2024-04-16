@@ -9,7 +9,7 @@ const AlgorithmList = () => {
   const [algorithms, setAlgorithms] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/algorithms/all')
+    axios.get('https://algoviz-backend-avdm2.amvera.io/api/algorithms/all')
       .then(response => {
         setAlgorithms(response.data);
       })
@@ -23,12 +23,12 @@ const AlgorithmList = () => {
       <h2>Алгоритмы</h2>
       <List>
         {algorithms.map((algorithm) => (
-        <ListItem 
-          key={algorithm.id} 
-          button 
-          component={Link} 
-          to={`/details/algorithm/${algorithm.simpleName}`}
-        >
+          <ListItem
+            key={algorithm.id}
+            button
+            component={Link}
+            to={`/details/algorithm/${algorithm.simpleName}`}
+          >
             <ListItemText primary={algorithm.name} secondary={`Сложность: ${algorithm.complexity}`} />
           </ListItem>
         ))}

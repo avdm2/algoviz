@@ -76,7 +76,7 @@ const DFSVisualization = () => {
             simpleName: 'dfs',
             fullName: 'Поиск в глубину',
             timestamp: new Date().toISOString(),
-            link: 'http://localhost:3000/visualize/algorithm/dfs'
+            link: 'https://algoviz-avdm2.netlify.app/visualize/algorithm/dfs'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };

@@ -9,7 +9,7 @@ const DataStructureList = () => {
   const [dataStructures, setDataStructures] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/data-structures/all')
+    axios.get('https://algoviz-backend-avdm2.amvera.io/api/data-structures/all')
       .then(response => {
         setDataStructures(response.data);
       })
@@ -23,10 +23,10 @@ const DataStructureList = () => {
       <h2>Структуры данных</h2>
       <List>
         {dataStructures.map((dataStructure) => (
-          <ListItem 
-            key={dataStructure.id} 
-            button 
-            component={Link} 
+          <ListItem
+            key={dataStructure.id}
+            button
+            component={Link}
             to={`/details/data-structure/${dataStructure.simpleName}`}
           >
             <ListItemText primary={dataStructure.name} secondary={`Сложность: ${dataStructure.complexity}`} />

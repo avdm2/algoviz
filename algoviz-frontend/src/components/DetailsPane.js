@@ -15,7 +15,7 @@ const DetailsPane = () => {
 
   const fetchDetail = async () => {
     try {
-      const apiUrl = type === 'algorithm' ? `http://localhost:8080/api/algorithms/${simpleName}` : `http://localhost:8080/api/data-structures/${simpleName}`;
+      const apiUrl = type === 'algorithm' ? `https://algoviz-backend-avdm2.amvera.io/api/algorithms/${simpleName}` : `https://algoviz-backend-avdm2.amvera.io/api/data-structures/${simpleName}`;
       const { data } = await axios.get(apiUrl);
       setDetail(data);
     } catch {

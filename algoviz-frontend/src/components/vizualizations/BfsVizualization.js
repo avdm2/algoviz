@@ -76,7 +76,7 @@ const BFSVisualization = () => {
             simpleName: 'bfs',
             fullName: 'Поиск в ширину',
             timestamp: new Date().toISOString(),
-            link: 'http://localhost:3000/visualize/algorithm/bfs'
+            link: 'https://algoviz-avdm2.netlify.app/visualize/algorithm/bfs'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };
