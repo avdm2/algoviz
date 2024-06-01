@@ -5,6 +5,7 @@ import ListPage from './components/ListPage';
 import DetailsPane from './components/DetailsPane';
 import VisualizationPage from './components/VizualizationPage';
 import VisualizationHistory from './components/history/VizualizationHistory';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/history" element={<VisualizationHistory />} />
           <Route path="/details/:type/:simpleName" element={<DetailsPane />} />
           <Route path="/visualize/:type/:simpleName" element={<VisualizationPage />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
     </Router>
