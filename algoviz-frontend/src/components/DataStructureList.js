@@ -9,7 +9,7 @@ const DataStructureList = () => {
   const [dataStructures, setDataStructures] = useState([]);
 
   useEffect(() => {
-    axios.get('https://algoviz-backend-avdm2.amvera.io/api/data-structures/all')
+    axios.get('http://localhost:8080/api/data-structures/all')
       .then(response => {
         setDataStructures(response.data);
       })

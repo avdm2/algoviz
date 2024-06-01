@@ -81,7 +81,7 @@ const DijkstraVizualization = () => {
                 ["Старт", startNode],
                 ["Конец", endNode]
             ]).entries()),
-            link: 'http://localhost:3000/visualize/algorithm/dijkstra'
+            link: 'https://algoviz-avdm2.netlify.app/visualize/algorithm/dijkstra'
         });
         localStorage.setItem('visualizationHistory', JSON.stringify(history));
     };
